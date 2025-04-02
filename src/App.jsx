@@ -3,20 +3,39 @@ import { useState, useEffect } from 'react'
 
 import './App.css'
 import SearchBar from './components/SearchBar/SearchBar'
-// import { getPhotos } from './apiService/photos'
 
 import Loader from './components/Loader/Loader'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import { getPhotos } from './apiService/photos'
+import ImageGallery from './components/ImageGallery/ImageGallery'
+import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn'
+import { ImageModal } from './components/ImageModal/ImageModal'
+// import ErrorMessage from './components/ErrorMessage/ErrorMessage'
+// import ImageCard from './components/ImageCard/ImageCard'
 
 function App() {
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
-  const [images, setImages] = useState([])
+  const [results, setImages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isEmpty, setIsEmpty] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [modalIsOpen, setIsOpen] = useState(false)
+  const [modalSrc, setModalSrc] = useState('')
+  const [modalAlt, setModalAlt] = useState('')
+
+  useEffect(() => {
+    if (error) {
+      toast('Oops! Something went wrong...')
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (isEmpty) {
+      toast('Sorry, nothing was found for your search... Try again!')
+    }
+  }, [isEmpty])
 
   useEffect(() => {
     if (!query) return
@@ -44,14 +63,55 @@ function App() {
 
   const handleSearch = (inputValue) => {
     setQuery(inputValue)
+    setImages([])
+    setPage(1)
+    setError(null)
+    setIsEmpty(false)
+    setIsVisible(false)
+  }
+
+  const handleLoadMore = () => {
+    setPage((prevPage) => prevPage + 1)
+  }
+
+  const openModal = (src, alt) => {
+    setIsOpen(true)
+    setModalSrc(src)
+    setModalAlt(alt)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+    setModalSrc('')
+    setModalAlt('')
   }
 
   return (
-    <>
-      <Toaster />
-      <SearchBar onSubmit={handleSearch} />
-      {isLoading && <Loader />}
-    </>
+    <div className="app">
+      <header className="header">
+        <SearchBar onSubmit={handleSearch} />
+      </header>
+      <main className="gallery">
+        {isLoading && <Loader className="loader" />}
+        {results.length > 0 && (
+          <ImageGallery results={results} openModal={openModal} />
+        )}
+        <Toaster position="top-left" />
+
+        {isVisible && (
+          <LoadMoreBtn onClick={handleLoadMore} disabled={isLoading}>
+            {isLoading ? 'LOADING...' : 'LOAD MORE'}
+          </LoadMoreBtn>
+        )}
+        {isEmpty}
+        <ImageModal
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+          src={modalSrc}
+          alt={modalAlt}
+        />
+      </main>
+    </div>
   )
 }
 

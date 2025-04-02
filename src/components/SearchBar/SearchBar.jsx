@@ -1,9 +1,9 @@
 import style from './SearchBar.module.css'
 import { useState } from 'react'
 
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 
-const notify = () => toast('Введіть текст для пошуку!')
+const notify = () => toast('Enter search requirements!')
 
 const SearchBar = ({ onSubmit }) => {
   const [query, setQuery] = useState('')
@@ -25,23 +25,21 @@ const SearchBar = ({ onSubmit }) => {
   }
 
   return (
-    <header className={style.header}>
-      <form className={style.formBox} onSubmit={handleSubmit}>
-        <input
-          className={style.input}
-          onChange={handleInput}
-          name="search"
-          value={query}
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button className={style.button} type="submit">
-          Search
-        </button>
-      </form>
-    </header>
+    <form className={style.formBox} onSubmit={handleSubmit}>
+      <input
+        className={style.input}
+        onChange={handleInput}
+        name="search"
+        value={query}
+        type="text"
+        autoComplete="off"
+        autoFocus
+        placeholder="Search images and photos"
+      />
+      <button className={style.button} type="submit">
+        Search
+      </button>
+    </form>
   )
 }
 

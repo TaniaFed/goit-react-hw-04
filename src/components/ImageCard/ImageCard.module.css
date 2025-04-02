@@ -1,0 +1,13 @@
+.card {
+    height: 200px;
+    /* width: calc(100% / 3 - 60px); */
+    width: 300px;
+    display: flex;
+    margin: auto;
+    
+}
+
+img {
+    width: 100%;
+    border-radius: 16px;
+}
