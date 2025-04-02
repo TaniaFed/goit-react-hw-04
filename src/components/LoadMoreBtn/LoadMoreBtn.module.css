@@ -1,4 +1,11 @@
 .loadMoreBtn {
     width: 135px;
+}
 
+.loadMoreBtn:hover,
+.loadMoreBtn:focus,
+.loadMoreBtn:active {
+    outline: none;
+    border-color: transparent;
+    background-color: rgb(111, 105, 105);
 }

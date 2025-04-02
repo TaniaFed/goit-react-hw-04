@@ -7,4 +7,5 @@ const LoadMoreBtn = ({ children, onClick, disabled }) => {
     </button>
   )
 }
+
 export default LoadMoreBtn

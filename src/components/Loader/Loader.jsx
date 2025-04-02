@@ -1,5 +1,6 @@
 import css from './Loader.module.css'
 import ClipLoader from 'react-spinners/ClipLoader'
+
 const Loader = () => (
   <div className={css.loaderContainer}>
     <ClipLoader

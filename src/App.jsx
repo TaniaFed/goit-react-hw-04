@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react'
-// import axios from 'axios'
-
 import './App.css'
 import SearchBar from './components/SearchBar/SearchBar'
-
 import Loader from './components/Loader/Loader'
 import toast, { Toaster } from 'react-hot-toast'
 import { getPhotos } from './apiService/photos'
 import ImageGallery from './components/ImageGallery/ImageGallery'
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn'
 import { ImageModal } from './components/ImageModal/ImageModal'
-// import ErrorMessage from './components/ErrorMessage/ErrorMessage'
-// import ImageCard from './components/ImageCard/ImageCard'
+import ErrorMessage from './components/ErrorMessage/ErrorMessage'
 
 function App() {
   const [query, setQuery] = useState('')
@@ -97,6 +93,8 @@ function App() {
           <ImageGallery results={results} openModal={openModal} />
         )}
         <Toaster position="top-left" />
+
+        {error && <ErrorMessage />}
 
         {isVisible && (
           <LoadMoreBtn onClick={handleLoadMore} disabled={isLoading}>

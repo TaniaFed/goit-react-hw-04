@@ -1,1 +1,24 @@
+.input {
+    border: none;
+    border-bottom: 2px solid gray;
+    background-color: transparent;
+    padding-left: 8px;
+    font-size: 20px;
+}
+.input:hover,
+.input:focus {
+    outline: none;
+    border-bottom: 4px solid rgb(162, 156, 160);
+}
 
+.button {
+    background-color: rgb(61, 65, 65);
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+    outline: none;
+    border-color: transparent;
+    background-color: #191717;
+}
